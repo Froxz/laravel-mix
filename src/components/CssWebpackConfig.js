@@ -168,6 +168,21 @@ class CssWebpackConfig extends AutomaticComponent {
     static afterLoaders({ method = 'auto' } = {}) {
         const loaders = [];
 
+        const vue = JSON.parse(JSON.stringify(Mix.components.get('vue')));
+
+    	if(vue && vue.options.options && vue.options.options.shadowMode){
+    		
+    		loaders.push({
+    			loader: 'vue-style-loader',
+    			options: {
+    				shadowMode: true
+    			}
+    		});
+
+    		return loaders;
+
+    	}
+
         if (method === 'auto') {
             // TODO: Fix
             if (Mix.extractingStyles !== false) {
